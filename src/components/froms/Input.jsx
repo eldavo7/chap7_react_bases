@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, forwardRef } from "react";
 /**
  * @param {string} placeholder 
  * @param {string} value
@@ -6,11 +6,12 @@ import { useId } from "react";
  * @param {(s: string) => void} onChange
  */
 
-export function Input ({placeholder, value, onChange, label}) {
+export const Input = forwardRef(function Input({placeholder, value, onChange, label}, ref) {
     const id = useId()
     return <div>
         <label className="form-label" htmlFor={id}>{label}</label>
         <input
+            ref={ref}
             id={id}
             className="from-control"
             value={value}
@@ -18,4 +19,5 @@ export function Input ({placeholder, value, onChange, label}) {
             onChange={(e) => onChange(e.target.value)}
         />
     </div>
-}
+})
+Input.displayName = "Input_Name"
