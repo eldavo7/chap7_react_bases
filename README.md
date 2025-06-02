@@ -26,3 +26,8 @@
         * src/components/froms/Input.jsx
 
 - Partie 4 : hook personnalisé    ->      branch : part_4
+    * fichiers modifier et/ou creer :
+        * src/App.jsx
+        * hooks/useFetch ; useIncrement ..
+        * components/Input.jsx
+
