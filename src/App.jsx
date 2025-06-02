@@ -1,32 +1,29 @@
-// import { useDocumentTitle } from "./hooks/useDocumentTitle.js";
-// import { Input } from "./components/froms/Input.jsx";
-// import { useState } from "react";
-// import { useIncrement } from "./hooks/useIncrement.js";
-
-import { useFetch } from "./hooks/useFetch.js";
+import { useImageUpload } from "./hooks/useImageUpload.js";
 
 function App() {
-  const { loading, data, errors } = useFetch('https://jsonplaceholder.typicode.com/posts');
+  const { imageFiles, previewUrls, handleImageChange, clearImages } = useImageUpload();
 
   return (
-    <div className="container my-2">
-      {loading && (
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      )}
+    <div className="container my-4">
+      <h2>Ajouter plusieurs photos</h2>
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleImageChange}
+      />
 
-      {errors && (
-        <div className="alert alert-danger">{errors.toString()}</div>
-      )}
-
-      {data && (
-        <div>
-          <ul>
-            {data.map((post) => (
-              <li key={post.id}>{post.title}</li>
+      {previewUrls.length > 0 && (
+        <div className="mt-3">
+          <h4>Aperçu :</h4>
+          <div className="d-flex flex-wrap gap-3">
+            {previewUrls.map((url, index) => (
+              <img key={index} src={url} alt={`Image ${index}`} width="150" />
             ))}
-          </ul>
+          </div>
+          <button onClick={clearImages} className="btn btn-danger mt-3">
+            Supprimer toutes les images
+          </button>
         </div>
       )}
     </div>
