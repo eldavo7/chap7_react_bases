@@ -1,27 +1,36 @@
-/*   - Partie 3 : le hook useRef  ->   branch : part_3.2     */
+// import { useDocumentTitle } from "./hooks/useDocumentTitle.js";
+// import { Input } from "./components/froms/Input.jsx";
+// import { useState } from "react";
+// import { useIncrement } from "./hooks/useIncrement.js";
 
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { Input } from './components/froms/Input.jsx';
-// import { Checkbox } from './components/froms/Checkbox.jsx';
+import { useFetch } from "./hooks/useFetch.js";
 
 function App() {
+  const { loading, data, errors } = useFetch('https://jsonplaceholder.typicode.com/posts');
 
-  const ref = useRef(null)
-  console.log('App', ref)
-  const [prefix, setPrefix] = useState('')
+  return (
+    <div className="container my-2">
+      {loading && (
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      )}
 
-  /*
-  useEffect(() => {
-    if (ref.current) {
-      //
-    }
-  }, []);
-  */
-  return <div>
-    <Input ref={ref} label="prefix" value={prefix} onChange={setPrefix}/>
-    {prefix.length === 0 && <div ref={ref}>Hello</div>}
-  </div>
+      {errors && (
+        <div className="alert alert-danger">{errors.toString()}</div>
+      )}
+
+      {data && (
+        <div>
+          <ul>
+            {data.map((post) => (
+              <li key={post.id}>{post.title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 }
-  
 
-export default App
+export default App;
