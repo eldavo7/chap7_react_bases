@@ -31,3 +31,12 @@
         * hooks/useFetch ; useIncrement ..
         * components/Input.jsx
 
+- Partie 5 : Mémoisation et useCallback    ->      branch : part_5
+    * fichiers modifier et/ou creer :
+        * src/App.jsx
+        * hooks/useIncrement.js
+
+        modified:   README.md
+        modified:   src/App.jsx
+        deleted:    src/hooks/useImageUpload.js
+        modified:   src/hooks/useIncrement.js

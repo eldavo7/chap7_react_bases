@@ -1,33 +1,37 @@
-import { useImageUpload } from "./hooks/useImageUpload.js";
+import { useState, memo, useMemo, useCallback, useRef } from "react";
+import { Input } from "./components/froms/Input.jsx";
+// import { waitSync } from "./utils/waitSync.js"
+
 
 function App() {
-  const { imageFiles, previewUrls, handleImageChange, clearImages } = useImageUpload();
+  
+  const [name, setName] = useState('')
+  const nameRef = useRef(name)
+  nameRef.current = name
 
-  return (
-    <div className="container my-4">
-      <h2>Ajouter plusieurs photos</h2>
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={handleImageChange}
-      />
+  const handleClick = useCallback(() => {
+    console.log(nameRef.current)
+  }, [])
 
-      {previewUrls.length > 0 && (
-        <div className="mt-3">
-          <h4>Aperçu :</h4>
-          <div className="d-flex flex-wrap gap-3">
-            {previewUrls.map((url, index) => (
-              <img key={index} src={url} alt={`Image ${index}`} width="150" />
-            ))}
-          </div>
-          <button onClick={clearImages} className="btn btn-danger mt-3">
-            Supprimer toutes les images
-          </button>
-        </div>
-      )}
+  return <div className="container my-2 vstack gap-2">
+    <div>
+      <Input label="Prénom" onChange={setName} value={name}/>
+      <div>
+        {name.toUpperCase()}
+      </div>
     </div>
-  );
+    <InfoMemo onClick={handleClick}/>
+
+  </div>
+
 }
+
+const InfoMemo = memo(function Info ({onClick}) {
+  console.log('Info', 'render')
+  // waitSync(500)
+  return <div className="alert alert-info" onClick={onClick}>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem necessitatibus corrupti deleniti. Aut veniam nobis quidem dolorem ut voluptas perspiciatis rerum recusandae nihil, tenetur labore explicabo in, nisi magni. Quia.
+  </div>
+})
 
 export default App;
